@@ -8,7 +8,7 @@ router.post("/signup",
     body("email", "email is rerquired").notEmpty(),
     body("contact", "contact is required").notEmpty(),
     body("contact", "contact must have length min  10 and max 10").isLength(),
-    body("loginid", "loginid 1-for tenent and").notEmpty(),
+    // body("loginid", "loginid 1-for tenent and").notEmpty(),
 
     body("adharnumber", "adhar is required").isLength(),
     body("password", "password is required").notEmpty(),
@@ -17,7 +17,7 @@ router.post("/signup",
 
 )
 router.post("/signin", signIn);
-router.delete("/delete", protect, deletee);
+router.delete("/delete", deletee);
 router.put('/update', update);
-router.get("/fetch", protect, fetchc);
+router.get("/fetch", fetchc);
 export default router;

@@ -11,7 +11,7 @@ const RoomsAvailable = sequelize.define("Rooms", {
     },
     description: {
         type: DataTypes.STRING,
-        // allowNull: false
+
 
     },
     price: {
@@ -23,26 +23,25 @@ const RoomsAvailable = sequelize.define("Rooms", {
 
 
     },
-    // ownerid: {
-    //     type: DataTypes.INTEGER,
-
-    // },
     size: {
         type: DataTypes.STRING,
 
     },
-    loginid: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
+    // imgUrl: {
+    //     type: DataTypes.STRING,
+    //     allowNull: false, 
+    //     validate: {
+    //         isUrl: true 
+    //     }
+    imgUrl: {
+        type: DataTypes.STRING, // <- type for image ( database :postgresql )
+        allowNull: true
+    },
 
 });
 sequelize.sync().then(result => {
-    console.log("user table Created---");
+    console.log("roomsavailable table Created---");
 }).catch(err => {
-    console.log("Something wrong---");
+    console.log("Something wrong in roomsavailable---");
 })
-// RoomsAvailable.checkPassword = async (password, encryptedPassword) => {
-//     return bcrypt.compareSync(password, encryptedPassword);
-// };
 export default RoomsAvailable;

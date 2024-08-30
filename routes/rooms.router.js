@@ -10,7 +10,7 @@ router.post("/add",
     body("location", "contact must have length min  10 and max 10").notEmpty(),
     // body("ownerid", "loginid is required").notEmpty(),
     body("size", "size is mandatory").notEmpty(),
-    body("loginid", "login id required").notEmpty(),
+
 
 
     addrom

@@ -1,18 +1,19 @@
 import RoomsAvailable from "./Roomsavailabler.js";
 import User from "./user.model.js";
-import Booking from "./bookingPayment.modell.js";
-User.hasMany(RoomsAvailable, { foreignKey: 'id' });
-RoomsAvailable.belongsTo(User, { foreignKey: 'id' });
+import Owner from "./Owner.js";
+//import Payment from "./payment.model.js";
+Owner.hasMany(RoomsAvailable, { foreignKey: 'id' });
+RoomsAvailable.belongsTo(Owner, { foreignKey: 'id' });
 
-User.hasMany(Booking, { foreignKey: 'userid' });
-Booking.belongsTo(User, { foreignKey: 'userid' });
+// User.hasMany(Payment, { foreignKey: 'userid' });
+// Payment.belongsTo(User, { foreignKey: 'userid' });
 
-RoomsAvailable.hasMany(Booking, { foreignKey: 'roomid' });
-Booking.belongsTo(RoomsAvailable, { foreignKey: 'roomid' });
+// RoomsAvailable.hasMany(Payment, { foreignKey: 'roomid' });
+// Payment.belongsTo(RoomsAvailable, { foreignKey: 'roomid' });
 
 
 
 export {
-    User, RoomsAvailable, Booking
+    User, RoomsAvailable,
 
 };

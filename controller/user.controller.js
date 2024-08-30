@@ -10,9 +10,9 @@ export const signUp = async (request, response, next) => {
         if (!errors.isEmpty()) return response.status(401).json({ error: "Bad request" });
 
 
-        let { username, email, contact, loginid, password, adharnumber } = request.body;
+        let { username, email, contact, password, adharnumber } = request.body;
         const hashpass = await bcrypt.hash(password, 10);
-        let user = await User.create({ username, email, contact, loginid, password: hashpass, adharnumber });
+        let user = await User.create({ username, email, contact, password: hashpass, adharnumber });
         console.log("user:", user);
         return response.status(201).json({ message: 'user saved', user });
     }
@@ -55,20 +55,20 @@ export const signIn = async (request, response, next) => {
     const { email, password } = request.body;
 
     try {
-        // Find user by email
+
         const user = await User.findOne({ where: { email }, raw: true });
         console.log(user);
 
         if (user) {
             console.log(password);
-            // Check if the password matches
+
             const checkpass = await User.checkPassword(password, user.password);
             console.log(checkpass);
 
             if (checkpass) {
-                // Generate JWT token
+
                 const tokenid = 'rohitmalviya'; // Secret key for JWT
-                const token = jwt.sign({ email: user.email }, tokenid, { expiresIn: '1h' });
+                const token = jwt.sign({ userId: user.id, email: user.email }, tokenid, { expiresIn: '1h' });
 
                 return response.status(200).json({ message: 'Sign in success', user, token });
             } else {

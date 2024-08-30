@@ -4,21 +4,34 @@ import cors from "cors";
 //import usermodel from './model/user.model.js'
 import Userrouter from './routes/user.router.js'
 import roomrouter from './routes/rooms.router.js'
-import bookingrouter from './routes/boking.js'
+import payment from './routes/payment.router.js'
 import './model/Roomsavailabler.js';
 import "./model/asocisation.js"
-import './model/bookingPayment.modell.js'
-import './model/Payment.model.js'
+
+
+//import Payment from './model/payment.model.js';
+
+import fileUpload from 'express-fileupload';
+import router from './routes/Owner.router.js';
+//import routerp from './routes/payment.router.js';
+
+
 
 
 const app = express();
+app.use(fileUpload({
+    useTempFiles: true
+}))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 app.use("/user", Userrouter);
-app.use("/user", roomrouter);
-app.use("/user", bookingrouter)
+app.use("/rooms", roomrouter);
+// app.use("/user", routerp)
+app.use("/api", payment);
+app.use("/owner", router)
+
 
 // app.use("/user", (req, res) => {
 //     res.status(200).json({ message: "greetings fellows" })

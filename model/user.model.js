@@ -22,10 +22,10 @@ const User = sequelize.define("nextt", {
         allowNull: false,
 
     },
-    loginid: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
+    // loginid: {
+    //     type: DataTypes.STRING,
+    //     allowNull: false
+    // },
     password: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -34,16 +34,13 @@ const User = sequelize.define("nextt", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    // password: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false,
-    // }
+
 
 });
 sequelize.sync().then(result => {
     console.log("user table Created---");
 }).catch(err => {
-    console.log("Something wrong---");
+    console.log("Something wrong in user---");
 })
 User.checkPassword = async (password, encryptedPassword) => {
     return bcrypt.compareSync(password, encryptedPassword);
