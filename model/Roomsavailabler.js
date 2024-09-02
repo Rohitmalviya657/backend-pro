@@ -1,8 +1,6 @@
 import { DataTypes } from "sequelize";
-// import sequelize from "../db/dbconfig.js";
 import sequelize from "../db/dbconfig.js";
-import bcrypt from 'bcryptjs';
-import { Result } from "express-validator";
+
 const RoomsAvailable = sequelize.define("Rooms", {
     Roomid: {
         type: DataTypes.INTEGER,
@@ -11,37 +9,32 @@ const RoomsAvailable = sequelize.define("Rooms", {
     },
     description: {
         type: DataTypes.STRING,
-
-
     },
     price: {
         type: DataTypes.INTEGER,
-
     },
     location: {
         type: DataTypes.STRING,
-
-
     },
     size: {
         type: DataTypes.STRING,
-
     },
-    // imgUrl: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false, 
-    //     validate: {
-    //         isUrl: true 
-    //     }
     imgUrl: {
-        type: DataTypes.STRING, // <- type for image ( database :postgresql )
+        type: DataTypes.STRING,
         allowNull: true
     },
-
+    booked: {  // New field to track booking status
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    }
 });
-sequelize.sync().then(result => {
-    console.log("roomsavailable table Created---");
-}).catch(err => {
-    console.log("Something wrong in roomsavailable---");
-})
+
+sequelize.sync()
+    .then(result => {
+        console.log("roomsavailable table Created---");
+    })
+    .catch(err => {
+        console.log("Something wrong in roomsavailable---", err);
+    });
+
 export default RoomsAvailable;

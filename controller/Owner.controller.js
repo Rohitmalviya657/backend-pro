@@ -1,5 +1,6 @@
 import { validationResult } from "express-validator";
 import bcrypt from 'bcryptjs';
+import RoomsAvailable from "../model/Roomsavailabler.js";
 
 import Owner from "../model/Owner.js";
 import bodyParser from "body-parser";
@@ -139,6 +140,18 @@ export const fetchc = async (request, response, next) => {
     }
 
 }
+export const getLandlordRooms = async (req, res) => {
+    try {
+        const landlordId = req.user.id; // Assuming the landlord's ID is in the request user object
+        const rooms = await RoomsAvailable.findAll({
+            where: { landlordId: landlordId } // Adjust this field based on your model
+        });
+        res.json(rooms);
+    } catch (error) {
+        console.error('Error fetching landlord rooms:', error);
+        res.status(500).json({ error: 'Failed to fetch rooms' });
+    }
+};
 
 
 

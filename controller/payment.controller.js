@@ -1,5 +1,6 @@
 import Payment from "../model/payment.model.js";
 import Razorapay from "./Rojarpay.js";
+import RoomsAvailable from "../model/Roomsavailabler.js";
 export const bookRoom = async (req, res) => {
     const { amount } = req.body;
     try {
@@ -40,15 +41,41 @@ export const createPayment = async (req, res) => {
 export const addMypayment = async (req, res) => {
     const userId = req.user.userId;
     const { amount, roomId, razorpayPaymentId } = req.body;
-    console.log("userrr", userId);
-
 
     try {
-        const myExercise = await Payment.create({ amount, roomId, userId, razorpayPaymentId });
-        res.json(myExercise);
-        console.log(myExercise);
+        // Check if the room is already booked
+        const room = await RoomsAvailable.findOne({ where: { Roomid: roomId } });
+        if (room.booked) {
+            return res.status(400).json({ error: 'Room is already booked' });
+        }
 
+        // Check if the user has already booked this room
+        const existingBooking = await Payment.findOne({ where: { roomId, userId } });
+        if (existingBooking) {
+            return res.status(400).json({ error: 'You have already booked this room' });
+        }
+
+        // Proceed to book the room and update the room status
+        const myExercise = await Payment.create({ amount, roomId, userId, razorpayPaymentId });
+        await room.update({ booked: true }); // Mark the room as booked
+
+        res.json(myExercise);
     } catch (error) {
         res.status(500).json({ error: 'Error adding room to myroom' });
     }
 };//this is new api
+export const fetchMyPayments = async (req, res) => {
+    try {
+        const userId = req.user.id; // Assuming user ID is stored in the request
+        const myPayments = await Payment.findAll({
+            where: { userId },
+            include: {
+                model: RoomsAvailable,
+                attributes: ['id', 'roomTitle', 'roomImageUrl'] // Include relevant room details
+            }
+        });
+        res.json(myPayments);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching My Payments' });
+    }
+};
