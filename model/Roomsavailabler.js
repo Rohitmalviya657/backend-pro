@@ -23,6 +23,7 @@ const RoomsAvailable = sequelize.define("Rooms", {
 
 
     },
+
     size: {
         type: DataTypes.STRING,
 

@@ -25,32 +25,6 @@ export const signUp = async (request, response, next) => {
     }
 }
 
-// export const signIn = async (request, response, next) => {
-//     let { email, password } = request.body;
-//     try {
-//         let user = await User.findOne({ where: { email }, raw: true });
-//         console.log(user);
-//         if (user) {
-//             const checkpass = User.checkPassword(password, user.password);
-//             console.log(checkpass);
-//             if (checkpass) {
-//                 const tokenid = 'rohitmalviya';
-//                 const token = jwt.sign({ email: user.email }, tokenid, { expiredIn: '1h' });
-//                 return response.status(200).json({ message: 'sign in success', user, token });
-//             }
-//             else {
-//                 return response.status(401).json({ message: "Bad request | Invalid pass id" });
-//             }
-//         } else {
-//             return response.status(401).json({ message: "Bad request | Invalid email id" });
-//         }
-
-
-//     }
-//     catch (err) {
-//         return response.status(500).json({ error: "Internal Server Error" });
-//     }
-// }
 
 
 export const signIn = async (request, response, next) => {

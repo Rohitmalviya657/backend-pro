@@ -1,6 +1,7 @@
 import express from 'express';
-import { signUp, signIn, deletee, update, fetchc } from '../controller/Owner.controller.js';
+import { signUp, signIn, deletee, update, fetchc, getLandlordRooms } from '../controller/Owner.controller.js';
 import { body } from 'express-validator';
+import userMiddleware from '../controller/bookedroom.js';
 import { protect } from '../Midelwear/authmeadeleware.js';
 const router = express.Router();
 router.post("/signup",
@@ -20,4 +21,5 @@ router.post("/signin", signIn);
 router.delete("/delete", protect, deletee);
 router.put('/update', update);
 router.get("/fetch", fetchc);
+router.get("/get", userMiddleware, getLandlordRooms);
 export default router;

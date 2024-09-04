@@ -70,7 +70,9 @@ export const signIn = async (request, response, next) => {
             if (checkpass) {
 
                 const tokenid = 'rohitmalviya'; // Secret key for JWT
-                const token = jwt.sign({ email: user.email }, tokenid, { expiresIn: '1h' });
+                const token = jwt.sign({ userId: user.id }, tokenid, { expiresIn: '1h' });
+                console.log("token heloo", token, user);
+
 
                 return response.status(200).json({ message: 'Sign in success', user, token });
             } else {
@@ -140,19 +142,18 @@ export const fetchc = async (request, response, next) => {
     }
 
 }
-export const getLandlordRooms = async (req, res) => {
+export const getLandlordRooms = async (req, response) => {
+    const id = req.user.userId;
     try {
-        const landlordId = req.user.id; // Assuming the landlord's ID is in the request user object
-        const rooms = await RoomsAvailable.findAll({
-            where: { landlordId: landlordId } // Adjust this field based on your model
-        });
-        res.json(rooms);
+        const fetch = await RoomsAvailable.findAll({ where: { id }, raw: true });
+
+        if (fetch.length > 0) {
+            return response.status(200).json({ message: "Data fetched successfully", fetch });
+        } else {
+            return response.status(404).json({ error: "No rooms found" });
+        }
     } catch (error) {
-        console.error('Error fetching landlord rooms:', error);
-        res.status(500).json({ error: 'Failed to fetch rooms' });
+        console.error('Error fetching landlord rooms:', error); // Log the error for debugging
+        return response.status(500).json({ error: "Internal Server Error" });
     }
 };
-
-
-
-
