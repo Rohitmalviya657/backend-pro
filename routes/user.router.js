@@ -4,7 +4,7 @@ import { body } from 'express-validator';
 import { protect } from '../Midelwear/authmeadeleware.js';
 //import { fetchcr, getPaymentsByUserId } from '../controller/bookedroom.js';
 import userMiddleware from '../controller/bookedroom.js'
-
+import { submitContactForm } from '../controller/Contack.router.js';
 const router = express.Router();
 
 router.post("/signup",
@@ -28,5 +28,6 @@ router.get("/fetchh", protect, fetchMyPayments); // Ensure this route is correct
 router.get("/done", fetchmyroom);
 router.get('/getmyexercises', protect, fetchMyexercise);
 router.get("/my", userMiddleware, fetchMy)
+router.post("/msg", submitContactForm);
 
 export default router;

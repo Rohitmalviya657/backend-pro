@@ -7,6 +7,7 @@ import roomrouter from './routes/rooms.router.js'
 import payment from './routes/payment.router.js'
 import './model/Roomsavailabler.js';
 import "./model/asocisation.js"
+import Contactt from './model/UserContact.js';
 
 
 //import Payment from './model/payment.model.js';
