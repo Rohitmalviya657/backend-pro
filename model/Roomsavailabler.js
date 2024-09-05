@@ -38,6 +38,10 @@ const RoomsAvailable = sequelize.define("Rooms", {
         type: DataTypes.STRING, // <- type for image ( database :postgresql )
         allowNull: true
     },
+    stock: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    }
 
 });
 sequelize.sync().then(result => {

@@ -1,5 +1,5 @@
 import express from 'express';
-import { addrom, fetchcromm } from '../controller/room.controler.js';
+import { addrom, fetchcromm, updateStock } from '../controller/room.controler.js';
 import { body } from 'express-validator';
 import { protect } from '../Midelwear/authmeadeleware.js';
 const router = express.Router();
@@ -22,4 +22,5 @@ router.get("/Rooms", fetchcromm);
 // router.delete("/delete", deletee);
 // router.put('/update', update);
 // router.get("/fetch", fetchc);
+router.put("/stock", updateStock)
 export default router;
