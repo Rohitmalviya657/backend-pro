@@ -44,6 +44,7 @@ const RoomsAvailable = sequelize.define("Rooms", {
     }
 
 });
+
 sequelize.sync().then(result => {
     console.log("roomsavailable table Created---");
 }).catch(err => {

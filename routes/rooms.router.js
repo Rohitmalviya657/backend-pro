@@ -1,5 +1,5 @@
 import express from 'express';
-import { addrom, fetchcromm, updateStock } from '../controller/room.controler.js';
+import { addrom, fetchcromm, removeRoom, updateStock } from '../controller/room.controler.js';
 import { body } from 'express-validator';
 import { protect } from '../Midelwear/authmeadeleware.js';
 const router = express.Router();
@@ -18,6 +18,9 @@ router.post("/add",
 
 )
 router.get("/Rooms", fetchcromm);
+router.delete('/roomsdelete/:Roomid', removeRoom);
+
+
 // router.post("/signin", signIn);
 // router.delete("/delete", deletee);
 // router.put('/update', update);
